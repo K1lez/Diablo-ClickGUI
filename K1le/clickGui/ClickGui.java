@@ -21,9 +21,6 @@ import java.util.ArrayList;
 public class ClickGui extends GuiScreen {
 
     public ArrayList<Panel> panels = new ArrayList<>();
-    public VisualPreview visualPreview;
-    public UserInfo userInfo;
-    public GuiButton configButton;
     public int lastMouseX, lastMouseY;
 
     public ClickGui() {
@@ -32,12 +29,6 @@ public class ClickGui extends GuiScreen {
             panels.add(new Panel(10 + (count * 105), c));
             count++;
         }
-        visualPreview = new VisualPreview(250, 250);
-        userInfo = new UserInfo();
-    }
-
-    public void initGui() {
-        configButton = new GuiButton(0, width - 205, height - 25, "Config Menu");
     }
 
     public void openClickGUI() {
@@ -58,20 +49,12 @@ public class ClickGui extends GuiScreen {
         for (Panel panel : panels) {
             panel.drawScreen(mouseX, mouseY, partialTicks);
         }
-
-        //visualPreview.drawScreen(mouseX, mouseY, partialTicks);
-        //userInfo.drawScreen(mouseX, mouseY, partialTicks);
-
-        //button for config manager
-
-        configButton.drawButton(mc, mouseX, mouseY);
     }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         for (Panel panel : panels) {
             panel.keyTyped(typedChar, keyCode);
         }
-        //visualPreview.keyTyped(typedChar, keyCode);
 
         super.keyTyped(typedChar, keyCode);
     }
@@ -80,26 +63,12 @@ public class ClickGui extends GuiScreen {
         for (Panel panel : panels) {
             panel.mouseClicked(mouseX, mouseY, mouseButton);
         }
-        //visualPreview.mouseClicked(mouseX, mouseY, mouseButton);
-        if (configButton.mousePressed(mc, mouseX, mouseY)) {
-            buttonHandler(configButton.id);
-        }
-    }
-
-    public void buttonHandler(int id) {
-        switch (id) {
-            case 0:
-                new ConfigMenu(this).openGUI();
-                break;
-        }
     }
 
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         for (Panel panel : panels) {
             panel.mouseReleased(mouseX, mouseY, state);
         }
-
-        // visualPreview.mouseReleased(mouseX, mouseY, state);
     }
 
     public void handleMouseInput() throws IOException {
